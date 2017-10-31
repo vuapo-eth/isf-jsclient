@@ -1,0 +1,179 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>IOTA Spam Fund v0.2</title>
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<link rel="shortcut icon" type="image/x-icon" href="./imgs/favicon.ico">
+    <script type="text/javascript" src="deps/jquery.min.js"></script>
+    <script type="text/javascript" src="deps/bootstrap.min.js"></script>
+    <script type="text/javascript" src="deps/iota.transactionSpammer.js/src/lib/iota.min.js"></script>
+    <script type="text/javascript" src="deps/iota.transactionSpammer.js/src/lib/curl.min.js"></script>
+    <script type="text/javascript" src="deps/iota.transactionSpammer.js/src/lib/EventEmitter.min.js"></script>
+    <script type="text/javascript" src="deps/iota.transactionSpammer.js/src/transactionSpammer.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/spamfund.js"></script>
+    <script type="text/javascript" src="js/ajax.js"></script>
+    <script type="text/javascript" src="js/md5.js"></script>
+</head>
+<body>
+	<noscript>
+		You have to activate JavaScript in order to use this program.
+	</noscript>
+	<header>
+		<img src="./imgs/iota.png">
+	</header>
+	<div id="news" class="hidden">
+		<div id="news_box">
+			<h1>...</h1>
+			<p>...</p>
+			<div class="button" onclick="$('#news').addClass('hidden');">close</div>
+		</div>
+	</div>
+	<div id="pattern"></div>
+	<div id="content">
+
+	<div id="fullscreen_button" onclick="toggleFullscreen();">toggle full screen mode</div>
+	<div id="colorscheme_button" onclick="toggleColorScheme();">switch color scheme</div>
+
+		<div id="page1">
+			<h1>Project Licenses</h1>
+			<p>The foundation for this project was laid by Peter Ryszkiewicz. He developed the transaction spammer which was later customized by us (the IOTA Spam Fund) in order to make it better suited for our reward system.</p>
+<pre id="lic1">MIT License
+
+Copyright (c) 2017 Peter Ryszkiewicz
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</pre>
+
+<pre id="lic2">MIT License
+
+Copyright (c) 2017 mikrohash.de
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</pre>
+			<div class="button" onclick="nextPageButtonClicked();">I have read and agree.</div>
+		</div>
+
+
+
+		<div id="page2" class="hidden">
+			<h1>Your Login Data</h1>
+			<p>If you haven't signed up yet, visit the <a href="https://mikrohash.de/iota/spamfund/signup" target="_blank">project website</a> to do so. All rewards will be credited to your account first - so you can later request to be paid out to your IOTA wallet.</p>
+			<hr/>
+			<input type="text" id="email" placeholder="email address" value="">
+			<input type="text" id="password" placeholder="password" value="">
+			<div class="button" onclick="nextPageButtonClicked();">Start Spamming Session!</div>
+			<hr/>
+			<label><input type="checkbox" id="use_own_node_list"> use your own node list instead of the one provided by us</label>
+			<textarea id="own_node_list" placeholder="http://node1.example.com:12345, http://node2.example.com:14625"></textarea>
+		</div>
+
+
+
+
+		<div id="page3" class="hidden">
+			<div id="stats">
+				<div class="statbox"><b id="timeSpentSpamming">0</b><label>time spent spamming</label></div>
+				<div class="statbox"><b id="spamcount">0</b> txs <label>spam created (session)</label></div>
+				<div class="statbox"><b id="transactionsPerMinuteCount">0</b> txs/min <label>transactions per minute</label></div><br/>
+
+				<div class="statbox"><b id="rewarded_txs">N/A</b> txs <label>rewarded transactions</label></div>
+				<div class="statbox"><b id="confirmed_balance">N/A</b> Ki <label>account balance</label></div>
+				<div class="statbox"><b id="current_reward">N/A</b> iota/tx<label>current reward</label></div>
+			</div>
+
+			<div class="button" id="stopbutton" onclick="nextPageButtonClicked();">Stop Spamming</div>
+			<img src="imgs/loading.gif" id="loader" class="hidden" width="40px" height="40px"/>
+			<label id="waitmsg" class="hidden">Spamming will be stopped right after next PoW is complete.<br/>This will take some seconds, sometimes more than a minute.</label>
+			<hr/>
+
+			<h3>Spamming Log:</h3>
+			<div id="log" spellcheck="false" readonly></div>
+			
+			<!--
+			<hr/>
+			<h3>Request Pay-out:</h3>
+			<input type="text" id="amount" placeholder="amount (in Ki)">
+			<input type="text" id="address" placeholder="receiving IOTA address">
+				<div class="button" onclick="">request pay-out</div> -->
+		</div>
+
+
+
+
+		<div id="page4" class="hidden">
+			<h1>Spamming finished!</h1>
+			<p>We will keep watching your latest pending transactions for a few more minutes and reward further confirmations. Keep in mind that the software isn't finished yet and pay-outs are not available as of now.</p>
+			<div class="button" onclick="i = 2; $('#page4').addClass('hidden'); nextPageButtonClicked();">New Spamming Session</div>
+			
+			<hr/>
+			<h3>Transaction Log:</h3>
+			<div id="txlog"></div>
+		</div>
+
+
+	</div>
+	<div id="pattern_reverse"></div>
+	<footer>
+		<p>
+			<a href="https://mikrohash.de/iota/spamfund" target="_blank">&rarr; official project website</a> |
+			<a href="https://prizz.github.io/iota-transaction-spammer-webapp/">&rarr; original spammer by Peter Ryszkiewicz</a>
+		</p>
+		<hr/>
+		<p>Donate (personal donation, <b>not</b> a Spam Fund donation):</p>
+		<table>
+			<tr>
+				<td> &nbsp; &nbsp; &nbsp; </td>
+				<td>IOTA</td>
+				<td> &nbsp; &nbsp; &nbsp; </td>
+				<td>&hearts;</td>
+				<td> &nbsp; &nbsp; &nbsp; </td>
+				<td class="mono">NYMWFUPALGSTLCVNEYTISXNCRPVWEGAHVKEZFSFKSKJXOIRJBDKCYPFKJ9FXIOIXBINEZBZJXCJNMJKT9JQGMSODQZ</td>
+			</tr>
+			<tr></tr>
+			<tr>
+				<td> &nbsp; &nbsp; &nbsp; </td>
+				<td>BTC</td>
+				<td> &nbsp; &nbsp; &nbsp; </td>
+				<td>&hearts;</td>
+				<td> &nbsp; &nbsp; &nbsp; </td>
+				<td class="mono">15MhG7ELC6vX4ik3DseVHX9oRMJZbuzGC6</td>
+			</tr>
+		</table>
+		<hr/>
+		<p>Contact me on <b>iota@mikrohash.de</b></p>
+	</footer>
+    <script type="text/javascript" src="js/init.js"></script>
+</body>
+</html>
