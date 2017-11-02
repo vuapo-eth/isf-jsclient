@@ -8,7 +8,7 @@
 
 	1.3) move the downloaded file into the directory 'deps/iota.transactionSpammer.js/src/lib'
 
-2) Create an account on the official IOTA Spam Fund website: https://mikrohash.de/iota/spamfund
+2) Create an account on the official IOTA Spam Fund website: www.iotaspam.com/signup
 
 3) Open 'index.html' in your web browser and click yourself through the menu
 
