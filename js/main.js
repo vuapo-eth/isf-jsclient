@@ -76,7 +76,7 @@ $(function(){
 
     setInterval(function(){
         requestNewSeed()
-    }, 60000)
+    }, 180000)
 })
 
 String.prototype.replaceAll = function(search, replacement) {
@@ -118,9 +118,9 @@ function formatDate(date) {
 }
 
 function updateTxMsg() {
-    txmsg = "I9SPAM9FOR9IOTAS9ON9MIKROHASH9DOT9DE9SLASH9IOTA9SLASH9SPAMFUND";
+    txmsg = "I9SPAM9FOR9IOTAS9ON99999IOTASPAM9DOT9COM";
     txmsg += "999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999";
-    txmsg += "FULL9NODE9"+createBase27String(currentProvider);
+    txmsg += "TRANSACTION9CREATED9USING9FULL9NODE99999"+createBase27String(currentProvider);
 
     iotaTransactionSpammer.options({
         message: txmsg
