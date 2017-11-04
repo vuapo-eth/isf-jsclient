@@ -10,7 +10,7 @@
     <script type="text/javascript" src="js/iota.min.js"></script>
     <script type="text/javascript" src="js/curl.min.js"></script>
     <script type="text/javascript" src="js/EventEmitter.min.js"></script>
-    <script type="text/javascript" src="js/transactionSpammer.js"></script>
+    <script type="text/javascript" src="js/spammer.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript" src="js/spamfund.js"></script>
     <script type="text/javascript" src="js/ajax.js"></script>
@@ -63,7 +63,7 @@ SOFTWARE.</pre>
 
 <pre id="lic2">MIT License
 
-Copyright (c) 2017 mikrohash.de
+Copyright (c) 2017 iotaspam.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -89,14 +89,15 @@ SOFTWARE.</pre>
 
 		<div id="page2" class="hidden">
 			<h1>Your Login Data</h1>
-			<p>If you haven't signed up yet, visit the <a href="https://mikrohash.de/iota/spamfund/signup" target="_blank">project website</a> to do so. All rewards will be credited to your account first - so you can later request to be paid out to your IOTA wallet.</p>
+			<p>If you haven't signed up yet, visit the <a href="http://iotaspam.com/signup" target="_blank">project website</a> to do so. All rewards will be credited to your account first - so you can later request to be paid out to your IOTA wallet.</p>
 			<hr/>
 			<input type="text" id="email" placeholder="email address" value="">
 			<input type="text" id="password" placeholder="password" value="">
 			<div class="button" onclick="nextPageButtonClicked();">Start Spamming Session!</div>
 			<hr/>
-			<label><input type="checkbox" id="use_own_node_list"> use your own node list instead of the one provided by us</label>
+			<label><input type="checkbox" id="use_own_node_list"> use your own node list instead of the one provided by us. <br/></label>
 			<textarea id="own_node_list" placeholder="http://node1.example.com:12345, http://node2.example.com:14625"></textarea>
+			Make sure to add at least one node of the protocol you are going to use (<label id="protocol">http or https</label>).
 		</div>
 
 
@@ -147,7 +148,7 @@ SOFTWARE.</pre>
 	<div id="pattern_reverse"></div>
 	<footer>
 		<p>
-			<a href="https://mikrohash.de/iota/spamfund" target="_blank">&rarr; official project website</a> |
+			<a href="http://iotaspam.com/" target="_blank">&rarr; official project website</a> |
 			<a href="https://prizz.github.io/iota-transaction-spammer-webapp/">&rarr; original spammer by Peter Ryszkiewicz</a>
 		</p>
 		<hr/>
@@ -168,11 +169,11 @@ SOFTWARE.</pre>
 				<td> &nbsp; &nbsp; &nbsp; </td>
 				<td>&hearts;</td>
 				<td> &nbsp; &nbsp; &nbsp; </td>
-				<td class="mono">15MhG7ELC6vX4ik3DseVHX9oRMJZbuzGC6</td>
+				<td class="mono">18JBorM1J99Cr1M488HPLyaN1jxFUrfnMq</td>
 			</tr>
 		</table>
 		<hr/>
-		<p>Contact me on <b>iota@mikrohash.de</b></p>
+		<p>Contact us on <b>contact@iotaspam.com</b></p>
 	</footer>
     <script type="text/javascript" src="js/init.js"></script>
 </body>

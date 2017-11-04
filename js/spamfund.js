@@ -129,5 +129,5 @@ function updateColors() {
 	$('#pattern_reverse').css("background-image", "url('./imgs/pattern_reverse"+color[colorScheme][8]+".png')");
 	$('header img').attr("src", "./imgs/iota"+color[colorScheme][8]+".png");
 
-	$('#content').css("color", color[colorScheme][5]);
+	$('#content, #content a').css("color", color[colorScheme][5]);
 }
