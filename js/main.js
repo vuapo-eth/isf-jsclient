@@ -9,6 +9,8 @@ var txmsg;
 const significantFigures = 3
 var startMilliseconds = Date.now();
 
+var state = "", log = "";
+
 function millisecondsToHHMMSSms(milliseconds) {
     var sec_num = parseInt(`${milliseconds / 1000}`, 10); // don't forget the second param
     var hours   = Math.floor(sec_num / 3600);
@@ -31,9 +33,16 @@ $(function(){
         message: txmsg
     })
 
-    eventEmitter.on('state', function(state) {
-        //console.log(`${new Date().toISOString()} New state: ${state}`)
-        $('#log').html(formatDate(new Date()) + ": " + state + "<br/>" + $('#log').html());
+    eventEmitter.on('state', function(msg) {
+        state = formatDate(new Date()) + ": " + msg;
+        $('#log').html("Current state: " + state + "<br/><br/>" + log);
+    })
+
+    eventEmitter.on('log', function(msg) {
+        var entry = formatDate(new Date()) + ": " + msg + "<br/>";
+        console.log(entry);
+        log = entry + log;
+        $('#log').html("Current state: " + state + "<br/><br/>" + log);
     })
 
     eventEmitter.on('transactionCountChanged', function(transactionCount) {

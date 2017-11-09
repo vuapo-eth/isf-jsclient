@@ -191,7 +191,7 @@ var iotaTransactionSpammer = (function(){
         eventEmitter.emitEvent('state', [`Creating transaction`])
         iota.api.sendTransfer(spamSeed, generateDepth(), weight, transfers, function(error, success){
             if (error) {
-                eventEmitter.emitEvent('state', ['<span class="warning">Error occurred while sending transactions</span>']);
+                eventEmitter.emitEvent('log', ['<span class="warning">Error occurred while sending transactions</span>']);
                 setTimeout(changeProviderAndSync, 1000);
                 return;
             }
@@ -203,7 +203,7 @@ var iotaTransactionSpammer = (function(){
             confirmationCount += localConfirmationCount
             averageConfirmationDuration = (oldTotalConfirmationDuration + transactionDuration) / confirmationCount
 
-            eventEmitter.emitEvent('state', ['<span class="important">Transaction created:</span>           '+success[0].hash]);
+            eventEmitter.emitEvent('log', ['<span class="important">Transaction created:</span>           '+success[0].hash]);
             eventEmitter.emitEvent('transactionCountChanged', [transactionCount]);
 
             eventEmitter.emitEvent('transactionCompleted', [success]);
@@ -230,7 +230,7 @@ var iotaTransactionSpammer = (function(){
 
         iota.api.getNodeInfo(function(error, success){
             if(error) {
-                eventEmitter.emitEvent('state', ['<span class="warning">Error occurred while checking if node is synced</span>']);
+                eventEmitter.emitEvent('log', ['<span class="warning">Error occurred while checking if node is synced</span>']);
                 setTimeout(changeProviderAndSync, 1000);
                 return;
             }
@@ -247,7 +247,7 @@ var iotaTransactionSpammer = (function(){
                 sendMessages()
             } else {
                 const secondsBeforeChecking = 3
-                eventEmitter.emitEvent('state', [`<span class="warning">Node is not synced. Wait ${secondsBeforeChecking}s.</span>`])
+                eventEmitter.emitEvent('log', [`<span class="warning">Node is not synced. Wait ${secondsBeforeChecking}s.</span>`])
                 setTimeout(function(){
                     changeProviderAndSync() // Sometimes the node stays unsynced for a long time, so change provider
                 }, secondsBeforeChecking * 1000)
@@ -260,8 +260,10 @@ var iotaTransactionSpammer = (function(){
         validProviders = getValidProviders();
         currentProvider = getRandomProvider();
         
+        eventEmitter.emitEvent('log', [`<span class="important">New node:</span>                      ${currentProvider}</span>`])
+
         if(currentProvider == null) {
-            eventEmitter.emitEvent('state', [`<span class="warning">Node list emptry. Check again in 5s.</span>`])
+            eventEmitter.emitEvent('log', [`<span class="warning">Node list emptry. Check again in 5s.</span>`])
             return setTimeout(restartSpamming, 5000);
         } else {
             initializeIOTA()
@@ -295,13 +297,13 @@ var iotaTransactionSpammer = (function(){
             if(started) { return }
             started = true;
             transactionCount = 0;
-            eventEmitter.emitEvent('state', ['<span class="important">Start transaction spamming</span><br/>']);
+            eventEmitter.emitEvent('log', ['<span class="important">Start spamming</span><br/>']);
             restartSpamming();
         },
         stopSpamming: function() {
             started = false;
             stopSpammer = true;
-            eventEmitter.emitEvent('state', ['<span class="important">Stop transaction spamming</span>']);
+            eventEmitter.emitEvent('log', ['<span class="important">Stop spamming</span>']);
         },
         eventEmitter: eventEmitter,
         getTransactionCount: () => transactionCount,

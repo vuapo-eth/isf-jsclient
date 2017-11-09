@@ -281,7 +281,6 @@ header #header_text p {
 #content #log span.important {
 	color: #00FF88;
 	font-weight: bold;
-	text-decoration: underline;
 }
 
 #content .statbox {
