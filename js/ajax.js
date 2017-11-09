@@ -23,7 +23,12 @@ var onSignin = function(result) {
         var timestamp = Math.round((new Date()).getTime() / 1000);
         setTimeout(signin, (sessionTime-timestamp)*0.4*1000);
     } else {
-        alert("[ERROR] Sign in failed: '" + result.error + "'.");
+        if(result.feedback) {
+            alert("[ERROR] Sign in failed: '" + result.error + "'.");
+        } else {
+            eventEmitter.emitEvent('state', ['<span class="warning">Sign in failed: ' + result.error + '. Try again in 10s.</span>']);
+            setTimeout(signin, 10000);
+        }
     }
 }
 

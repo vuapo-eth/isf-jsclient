@@ -15,11 +15,11 @@ var httpsProviders = null;
 var validProviders = null;
 var currentProvider = null;
 
-var spamSeed = "ERROR9999999999999COULD9NOT9CONNECT9TO9IOTA9SPAM9FUND9WEBSITE9TO9RECEIVE9ADDRESS9";//generateSeed()
+var spamSeed = "ERROR9999999999999COULD9NOT9CONNECT9TO9IOTA9SPAM9FUND9WEBSITE9TO9RECEIVE9ADDRESS9";
 var message = "999";
 
 var weight = 14;
-var tag = "99999IOTASPAMFUND";
+var tag = "IOTASPAMFUND";
 
 var iotaTransactionSpammer = (function(){
     const iotaLib = window.IOTA
