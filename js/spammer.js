@@ -70,7 +70,6 @@ var iotaTransactionSpammer = (function(){
             value: 0,
             message: message,
             tag: tag,
-            obsoleteTag: tag
         }
     }
 
@@ -122,7 +121,6 @@ var iotaTransactionSpammer = (function(){
                 // trunkTransaction together
 
                 var txObject = iotaObj.utils.transactionObject(thisTrytes);
-                txObject.obsoleteTag = txObject.tag;
                 txObject.attachmentTimestamp = Date.now();
                 txObject.attachmentTimestampLowerBound = 0;
                 txObject.attachmentTimestampUpperBound = MAX_TIMESTAMP_VALUE;
@@ -283,7 +281,6 @@ var iotaTransactionSpammer = (function(){
                     spamSeed: spamSeed,
                     message: message,
                     tag: tag,
-                    obsoleteTag: tag,
                     numberOfTransfersInBundle: numberOfTransfersInBundle
                 }
             }
@@ -293,7 +290,6 @@ var iotaTransactionSpammer = (function(){
             if(params.hasOwnProperty("spamSeed")) { spamSeed = params.spamSeed }
             if(params.hasOwnProperty("message")) { message = params.message }
             if(params.hasOwnProperty("tag")) { tag = params.tag }
-            if(params.hasOwnProperty("obsoleteTag")) { obsoleteTag = params.obsoleteTag }
             if(params.hasOwnProperty("numberOfTransfersInBundle")) { numberOfTransfersInBundle = params.numberOfTransfersInBundle }
         },
         startSpamming: function() {
